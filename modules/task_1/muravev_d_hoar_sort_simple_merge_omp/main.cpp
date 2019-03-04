@@ -1,5 +1,5 @@
-//To change name of last commit
-//Hoar sorting with simple merge
+// Copyright 2019 Muravev Denis
+// Hoar sorting with simple merge
 #include <ctime>
 #include <iostream>
 #define TYPE_MAS double
@@ -12,7 +12,7 @@ TYPE_MAS* Create_mas(TYPE_SIZE _size) {
 
 	if (_size < 1)
 		return NULL;
-	
+
 	for (i = 0; i < _size; i++)
 		_mas[i] = rand() % (left - right + 1) + left;
 	return  _mas;
@@ -87,7 +87,7 @@ int main(int argc, char * argv[]) {
 
 	time_sort = clock();
 	Quick_sort(mas, 0, size - 1);
-	time_sort = (clock() - time_sort) / (double) CLOCKS_PER_SEC;
+	time_sort = (clock() - time_sort) / static_cast<double>( CLOCKS_PER_SEC);
 	std::cout << "Spend time algorithm (Sequence version Hoar sorting): " << time_sort << "sec" << std::endl;
 
 	if (Check_not_decreasing(mas, size))
