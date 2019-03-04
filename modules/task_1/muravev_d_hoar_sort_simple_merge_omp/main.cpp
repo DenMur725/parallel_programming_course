@@ -14,7 +14,7 @@ TYPE_MAS* Create_mas(TYPE_SIZE _size) {
 		return NULL;
 
 	for (i = 0; i < _size; i++)
-		_mas[i] = rand() % (left - right + 1) + left;
+		_mas[i] = std::rand() % (left - right + 1) + left;
 	return  _mas;
 }
 
@@ -78,7 +78,7 @@ int main(int argc, char * argv[]) {
 		if (strcmp(argv[1], "-size") == 0)
 			size = atoi(argv[2]);
 
-	srand((unsigned)time(NULL));
+	std::srand((unsigned)time(NULL));
 	mas = Create_mas(size);
 	if (mas == NULL) {
 		std::cout << "Error! Incorrect input data for array";
@@ -87,7 +87,7 @@ int main(int argc, char * argv[]) {
 
 	time_sort = clock();
 	Quick_sort(mas, 0, size - 1);
-	time_sort = (clock() - time_sort) / static_cast<double>( CLOCKS_PER_SEC);
+	time_sort = (clock() - time_sort) / static_cast<double>(CLOCKS_PER_SEC);
 	std::cout << "Spend time algorithm (Sequence version Hoar sorting): " << time_sort << "sec" << std::endl;
 
 	if (Check_not_decreasing(mas, size))
