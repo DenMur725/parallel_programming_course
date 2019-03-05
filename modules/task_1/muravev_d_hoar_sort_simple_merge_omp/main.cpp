@@ -2,6 +2,8 @@
 // Hoar sorting with simple merge
 #include <ctime>
 #include <iostream>
+#include <climits>
+#include <cstring>
 #define TYPE_MAS double
 #define TYPE_SIZE unsigned int
 
