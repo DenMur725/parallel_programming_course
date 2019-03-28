@@ -8,12 +8,15 @@
 #define TYPE_SIZE unsigned int
 
 TYPE_MAS* Create_mas(TYPE_SIZE _size) {
-	if (_size < 1)
-		return NULL;
 
     TYPE_MAS* _mas = new TYPE_MAS[_size];
     TYPE_SIZE left = 0, right = INT_MAX;
     TYPE_SIZE i;
+
+
+    if (_size < 1)
+        return NULL;
+
 
     for (i = 0; i < _size; i++)
         _mas[i] = std::rand() % (left - right + 1) + left;
