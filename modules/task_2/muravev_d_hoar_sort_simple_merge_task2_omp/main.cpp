@@ -11,7 +11,6 @@
 TYPE_MAS* Create_mas(TYPE_SIZE _size) {
     if (_size < 1)
         return NULL;
-    
     TYPE_MAS* _mas = new TYPE_MAS[_size];
     TYPE_SIZE left = 0, right = INT_MAX;
     TYPE_SIZE i;
@@ -23,7 +22,6 @@ TYPE_MAS* Create_mas(TYPE_SIZE _size) {
 void Show_mas(TYPE_MAS* _mas, TYPE_SIZE _size) {
     if (_mas == NULL || _size < 1)
         return;
-
     TYPE_SIZE i;
     int delta = 7;
     if (_size < 50) {
@@ -71,7 +69,7 @@ void Quick_sort(TYPE_MAS * mas, TYPE_SIZE l, TYPE_SIZE r) {
         Quick_sort(mas, i, r);
 }
 
-int* Create_reverse_notation(int _n, int _k) { // n=2^k 
+int* Create_reverse_notation(int _n, int _k) {
     int higher = -1;
     int* _rev = new int[_n];
     _rev[0] = 0;
@@ -120,22 +118,21 @@ void Merge(TYPE_MAS* mas, TYPE_MAS* tmp_mas, TYPE_SIZE l1, TYPE_SIZE r1, TYPE_SI
         else
             tmp_mas[k++] = mas[j++];
     }
-    if (i > r1)
+    if (i > r1) {
         for (j; j <= r2; j++)
             tmp_mas[k++] = mas[j];
-    else
+    } else {
         for (i; i <= r1; i++)
             tmp_mas[k++] = mas[i];
+    }
     for (i = l1; i <= r2; i++)
         mas[i] = tmp_mas[i];
 }
 
 void Task_sort(TYPE_MAS* _mas, TYPE_SIZE _size, TYPE_MAS* _tmp_mas, int _num_thr) {
-    
     int numd_threads;
     int n = 1, k = 0;
     BorderList *border;
-
     #pragma omp parallel num_threads(_num_thr)
     {
     #pragma omp single 
@@ -143,7 +140,7 @@ void Task_sort(TYPE_MAS* _mas, TYPE_SIZE _size, TYPE_MAS* _tmp_mas, int _num_thr
         numd_threads = omp_get_num_threads();
         if (numd_threads != _num_thr) {
             std::cout << "Warning! Maximum number of threads is " << numd_threads;
-            std::cout << ". Further calculations will be made with this value." << std::endl ;
+            std::cout << ". Further calculations will be made with this value." << std::endl;
         }
         while (n < numd_threads) {
             n = n << 1;
@@ -162,7 +159,6 @@ void Task_sort(TYPE_MAS* _mas, TYPE_SIZE _size, TYPE_MAS* _tmp_mas, int _num_thr
 
     int max_rank;
     int source;
-
     if (k > 0) {
         max_rank = 1 << (k - 1);
         source = rank ^ max_rank;
@@ -171,7 +167,6 @@ void Task_sort(TYPE_MAS* _mas, TYPE_SIZE _size, TYPE_MAS* _tmp_mas, int _num_thr
                 border[rank].r = border[source].r;
         }
     }
-    
     for (int i = k - 2; i >= 0; i--) {
         #pragma omp barrier
         source = rank ^ (1 << i);
@@ -201,8 +196,7 @@ int main(int argc, char * argv[]) {
             if (strcmp(argv[3], "-n") == 0)
                 num_thr = atoi(argv[4]);
         }
-    }
-    else {
+    } else {
         std::cout << "Initial data is missing or entered incorrectly" << std::endl;
     }
 
@@ -219,8 +213,7 @@ int main(int argc, char * argv[]) {
     if (size < 2 * num_thr) {
         Quick_sort(mas, 0, size - 1);
         std::cout << "Size array: " << size << "; Numb Threads: 1" << std::endl;
-    }
-    else {
+    } else {
         Task_sort(mas, size, tmp_mas, num_thr);
     }
     time_sort = omp_get_wtime() - time_sort;
