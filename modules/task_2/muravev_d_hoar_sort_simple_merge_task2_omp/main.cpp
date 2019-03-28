@@ -135,7 +135,7 @@ void Task_sort(TYPE_MAS* _mas, TYPE_SIZE _size, TYPE_MAS* _tmp_mas, int _num_thr
     BorderList *border;
     #pragma omp parallel num_threads(_num_thr)
     {
-    #pragma omp single 
+    #pragma omp single
     {
         numd_threads = omp_get_num_threads();
         if (numd_threads != _num_thr) {
@@ -151,12 +151,9 @@ void Task_sort(TYPE_MAS* _mas, TYPE_SIZE _size, TYPE_MAS* _tmp_mas, int _num_thr
         std::cout << "Size array: " << _size << "; Numb Threads: " << omp_get_num_threads() << std::endl;
     }
     #pragma omp barrier
-    
     int rank = omp_get_thread_num();
     Quick_sort(_mas, border[rank].l, border[rank].r);
-
     #pragma omp barrier
-
     int max_rank;
     int source;
     if (k > 0) {
