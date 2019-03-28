@@ -119,10 +119,10 @@ void Merge(TYPE_MAS* mas, TYPE_MAS* tmp_mas, TYPE_SIZE l1, TYPE_SIZE r1, TYPE_SI
             tmp_mas[k++] = mas[j++];
     }
     if (i > r1) {
-        for (j; j <= r2; j++)
+        for (; j <= r2; j++)
             tmp_mas[k++] = mas[j];
     } else {
-        for (i; i <= r1; i++)
+        for (; i <= r1; i++)
             tmp_mas[k++] = mas[i];
     }
     for (i = l1; i <= r2; i++)
@@ -154,7 +154,7 @@ void Task_sort(TYPE_MAS* _mas, TYPE_SIZE _size, TYPE_MAS* _tmp_mas, int _num_thr
     int rank = omp_get_thread_num();
     Quick_sort(_mas, border[rank].l, border[rank].r);
     #pragma omp barrier
-    int max_rank;
+    int max_rank = 0;
     int source;
     if (k > 0) {
         max_rank = 1 << (k - 1);
