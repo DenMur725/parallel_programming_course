@@ -1,6 +1,9 @@
 // Copyright 2019 Muravev Denis
 // Hoar sorting with simple merge
 #include <tbb/tbb.h>
+#include <tbb/task_group.h>
+#include <tbb/task_scheduler_init.h>
+#include <tbb/tick_count.h>
 #include <ctime>
 #include <iostream>
 #include <climits>
