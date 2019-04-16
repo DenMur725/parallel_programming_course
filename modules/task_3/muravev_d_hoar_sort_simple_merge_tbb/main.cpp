@@ -1,6 +1,5 @@
 // Copyright 2019 Muravev Denis
 // Hoar sorting with simple merge
-// #include <tbb/tbb.h>
 #include <tbb/task_group.h>
 #include <tbb/task_scheduler_init.h>
 #include <tbb/tick_count.h>
@@ -199,7 +198,6 @@ void Task_sort_tbb(TYPE_MAS* _mas, TYPE_SIZE _size, TYPE_MAS* _tmp_mas, int _num
         }
     }
     tg.wait();
-    init.terminate();
 }
 
 int main(int argc, char * argv[]) {
