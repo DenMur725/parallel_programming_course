@@ -121,8 +121,7 @@ void Merge(TYPE_MAS* mas, TYPE_MAS* tmp_mas, TYPE_SIZE l1, TYPE_SIZE r1, TYPE_SI
     if (i > r1) {
         for (; j <= r2; j++)
             tmp_mas[k++] = mas[j];
-    }
-    else {
+    } else {
         for (; i <= r1; i++)
             tmp_mas[k++] = mas[i];
     }
@@ -131,11 +130,11 @@ void Merge(TYPE_MAS* mas, TYPE_MAS* tmp_mas, TYPE_SIZE l1, TYPE_SIZE r1, TYPE_SI
 }
 
 class TaskSort {
-private:
+ private:
     TYPE_MAS* mas;
     TYPE_SIZE l;
     TYPE_SIZE r;
-public:
+ public:
     TaskSort(TYPE_MAS* _mas, TYPE_SIZE _l, TYPE_SIZE _r) : mas(_mas), l(_l), r(_r) {}
     void operator()() const {
         Quick_sort(mas, l, r);
@@ -143,14 +142,14 @@ public:
 };
 
 class TaskMerge {
-private:
+ private:
     TYPE_MAS* mas;
     TYPE_MAS* tmp_mas;
     TYPE_SIZE l1;
     TYPE_SIZE r1;
     TYPE_SIZE l2;
     TYPE_SIZE r2;
-public:
+ public:
     TaskMerge(TYPE_MAS* _mas, TYPE_MAS* _tmp_mas, TYPE_SIZE _l1, TYPE_SIZE _r1, TYPE_SIZE _l2, TYPE_SIZE _r2)
         : mas(_mas), tmp_mas(_tmp_mas), l1(_l1), r1(_r1), l2(_l2), r2(_r2) {}
     void operator()() const {
@@ -240,15 +239,14 @@ int main(int argc, char * argv[]) {
         Task_sort_tbb(mas, size, tmp_mas, num_thr);
     }
     tbb::tick_count time_end = tbb::tick_count::now();
-    
 
-    std::cout << "Spend time algorithm (tbb parallel version Hoar sorting): " << (time_end - time_start).seconds() << "sec" << std::endl;
+    std::cout << "Spend time algorithm (tbb parallel version Hoar sorting): "
+        << (time_end - time_start).seconds() << "sec" << std::endl;
     if (Check_not_decreasing(mas, size))
         std::cout << "Array is sorted by not decreasing" << std::endl;
     else
         std::cout << "Array isn't sorted by not decreasing" << std::endl;
     Show_mas(mas, size);
-    
 
     delete[] mas;
     delete[] tmp_mas;
